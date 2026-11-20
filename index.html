@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fastnet Billing</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f1f5f9;font-family:Arial,sans-serif;color:#172033}
+header{background:#0b1730;color:white;padding:22px}
+header h1{margin:0;font-size:23px}
+header p{margin:8px 0 0;color:#aab8d0}
+.container{padding:16px;max-width:700px;margin:auto}
+.card{background:white;border-radius:16px;padding:18px;margin-bottom:15px;box-shadow:0 3px 12px #00000008}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{border-radius:15px;padding:18px;background:white}
+.stat small{color:#64748b}
+.stat h2{font-size:28px;margin:12px 0 4px}
+.green{color:#16a34a}
+.red{color:#dc2626}
+.blue{color:#2563eb}
+button{border:0;background:#0b1730;color:white;padding:12px 16px;border-radius:10px;font-size:14px}
+input{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;margin:7px 0}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:12px 8px;border-bottom:1px solid #eee;font-size:13px}
+.badge{padding:5px 9px;border-radius:20px;background:#dcfce7;color:#15803d}
+.off{background:#fee2e2;color:#dc2626}
+.muted{color:#64748b;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<h1>🚀 FASTNET BILLING</h1>
+<p>Dashboard pelanggan internet</p>
+</header>
+
+<div class="container">
+<div class="card">
+<h3>Status Router</h3>
+<p id="routerStatus" class="red">● Belum terhubung ke MikroTik</p>
+<p class="muted">Dashboard saat ini menggunakan data demo.</p>
+</div>
+
+<div class="grid">
+<div class="stat">
+<small>Total Pelanggan</small>
+<h2 id="total">33</h2>
+</div>
+<div class="stat">
+<small>Online</small>
+<h2 class="green" id="online">24</h2>
+</div>
+<div class="stat">
+<small>Offline</small>
+<h2 class="red" id="offline">9</h2>
+</div>
+<div class="stat">
+<small>Persentase Online</small>
+<h2 class="blue" id="percent">73%</h2>
+</div>
+</div>
+
+<div class="card">
+<h3>👥 Pelanggan</h3>
+<input id="search" placeholder="Cari nama atau username..." oninput="searchData()">
+<div style="overflow-x:auto">
+<table>
+<thead>
+<tr><th>Nama</th><th>Username</th><th>Status</th></tr>
+</thead>
+<tbody id="list"></tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<h3>⚙️ Pengaturan MikroTik</h3>
+<p class="muted">Pengaturan koneksi router (belum aktif)</p>
+<input placeholder="IP MikroTik" id="ip">
+<input placeholder="Username API" id="user">
+<input placeholder="Password API" id="pass" type="password">
+<button onclick="saveSettings()">Simpan Pengaturan</button>
+<p class="muted">Koneksi langsung belum diaktifkan. Integrasi membutuhkan server penghubung yang aman.</p>
+</div>
+
+<div class="card">
+<h3>Fastnet Indo Data</h3>
+<p class="muted">Aplikasi billing & monitoring jaringan</p>
+</div>
+</div>
+
+<script>
+const customers=[
+["Pelanggan 01","fastnet01","online"],
+["Pelanggan 02","fastnet02","online"],
+["Pelanggan 03","fastnet03","offline"],
+["Pelanggan 04","fastnet04","online"],
+["Pelanggan 05","fastnet05","online"],
+["Pelanggan 06","fastnet06","offline"],
+["Pelanggan 07","fastnet07","online"],
+["Pelanggan 08","fastnet08","online"],
+["Pelanggan 09","fastnet09","offline"],
+["Pelanggan 10","fastnet10","online"],
+["Pelanggan 11","fastnet11","online"],
+["Pelanggan 12","fastnet12","online"],
+["Pelanggan 13","fastnet13","offline"],
+["Pelanggan 14","fastnet14","online"],
+["Pelanggan 15","fastnet15","online"],
+["Pelanggan 16","fastnet16","offline"],
+["Pelanggan 17","fastnet17","online"],
+["Pelanggan 18","fastnet18","online"],
+["Pelanggan 19","fastnet19","online"],
+["Pelanggan 20","fastnet20","offline"],
+["Pelanggan 21","fastnet21","online"],
+["Pelanggan 22","fastnet22","online"],
+["Pelanggan 23","fastnet23","offline"],
+["Pelanggan 24","fastnet24","online"],
+["Pelanggan 25","fastnet25","online"],
+["Pelanggan 26","fastnet26","offline"],
+["Pelanggan 27","fastnet27","online"],
+["Pelanggan 28","fastnet28","online"],
+["Pelanggan 29","fastnet29","offline"],
+["Pelanggan 30","fastnet30","online"],
+["Pelanggan 31","fastnet31","online"],
+["Pelanggan 32","fastnet32","online"],
+["Pelanggan 33","fastnet33","offline"]
+];
+
+function render(data){
+document.getElementById("list").innerHTML=data.map(c=>
+`<tr><td>${c[0]}</td><td>${c[1]}</td><td><span class="badge ${c[2]==="offline"?"off":""}">${c[2].toUpperCase()}</span></td></tr>`
+).join("");
+}
+function searchData(){
+let q=document.getElementById("search").value.toLowerCase();
+render(customers.filter(c=>c[0].toLowerCase().includes(q)||c[1].toLowerCase().includes(q)));
+}
+function saveSettings(){
+alert("Pengaturan dicatat pada demo. Koneksi MikroTik belum diaktifkan.");
+}
+render(customers);
+</script>
+</body>
+</html>
